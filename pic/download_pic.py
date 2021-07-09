@@ -25,9 +25,9 @@ def requests_chunk_download(img_url, download_path):
             f.write(chunk)
 
 if __name__ == '__main__':
-    img_url = 'https://tinypng.com/images/panda-developing-2x.png'
+    img_url = 'https://img1.baidu.com/it/u=2825220054,2215241009&fm=26&fmt=auto&gp=0.jpg'
     download_path = Path('./download_images')
     download_path.mkdir(exist_ok=True)
-    urllib_download(img_url,f"{download_path}/images1.png")
-    request_download(img_url, f"{download_path}/images2.png")
-    requests_chunk_download(img_url, f"{download_path}/images3.png")
+    urllib_download(img_url,f"{download_path}/images1.jpg")
+    request_download(img_url, f"{download_path}/images2.jpg")
+    requests_chunk_download(img_url, f"{download_path}/images3.jpg")
