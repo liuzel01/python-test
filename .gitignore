@@ -1,3 +1,4 @@
 *.pyc
 *download_images*
 .idea/
+*DS_Store*
