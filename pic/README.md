@@ -7,3 +7,7 @@
 
 - [长图拼接](./concat_pic.py)
 
+- [OCR文字识别](./baidu_ocr.py)
+
+- [添加水印](./add_watermark.py)
+
