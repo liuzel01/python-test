@@ -11,5 +11,5 @@
 
 - [添加水印](./add_watermark.py)
 
-- [合并多个图片到 pdf](./add_watermark.py)
+- [合并多个图片到 pdf](./pics2pdf.py)
 
