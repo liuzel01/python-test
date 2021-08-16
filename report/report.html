@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body style="height: 100%; margin: 0">
+        <div id="container" style="height: 100%"></div>
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+
+        <script type="text/javascript">
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+
+var option;
+
+
+
+var data_list = [
+       [1, 2, 3, 4, 5],
+       [8, 4, 3, 2, 3],
+       [5, 9, 6, 10, 3],
+       [9, 7, 4, 7, 6],
+       [5, 4, 3, 2, 9]
+]
+
+option = {
+    xAxis: {
+        max: 'dataMax',
+    },
+    yAxis: {
+        type: 'category',
+        data: ['A', 'B', 'C', 'D', 'E'],
+        inverse: true,
+        animationDuration: 300,
+        animationDurationUpdate: 300,
+        max: 4 // only the largest 3 bars will be displayed
+    },
+    series: [{
+        realtimeSort: true,
+        name: 'X',
+        type: 'bar',
+        data: data_list[0],
+        label: {
+            show: true,
+            position: 'right',
+            valueAnimation: true
+        }
+    }],
+    legend: {
+        show: true
+    },
+    animationDuration: 0,
+    animationDurationUpdate: 3000,
+    animationEasing: 'linear',
+    animationEasingUpdate: 'linear'
+};
+
+var index = 1;
+
+function run () {
+    var data = option.series[0].data;
+    if(index >= data_list.length){
+        return;
+    }
+    for (var i = 0; i < data.length; ++i) {
+        data[i] = data_list[index][i];
+    }
+    index++;
+    myChart.setOption(option);
+}
+
+
+setInterval(function () {
+    run();
+}, 3000);
+
+if (option && typeof option === 'object') {
+    myChart.setOption(option);
+}
+
+        </script>
+    </body>
+</html>
