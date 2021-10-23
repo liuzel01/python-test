@@ -1,10 +1,25 @@
+from collections import Counter
+import socket
+import time
 
+import ray
 
-for i in range(1,10):
-    for j in range(1,i+1):
-        if i*j >= 10:
-            print(f"{i} x {j} = {i*j :2d}", end='\t')
-        else:
-            print(f"{i} x {j} = {i * j :1d}", end='\t')
+ray.init()
 
-    print('')
+print('''This cluster consists o    f
+    {} nodes in total
+    {} CPU resources in total
+'''.format(len(ray.nodes()), ray.cluster_resources()['CPU']))
+
+@ray.remote
+def f():
+    time.sleep(0.001)
+    # Return IP address.
+    return socket.gethostbyname(socket.gethostname())
+
+object_ids = [f.remote() for _ in range(10000)]
+ip_addresses = ray.get(object_ids)
+
+print('Tasks executed')
+for ip_address, num_tasks in Counter(ip_addresses).items():
+    print('    {} tasks on {}'.format(num_tasks, ip_address))
