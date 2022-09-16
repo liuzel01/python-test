@@ -5,7 +5,8 @@
 ### 生成密钥
 
 ```sh
-python test.py make-keys rsakey
+py test.py make-keys rsakey
+~~python test.py make-keys rsakey~~
 ```
 公钥保存在 rsakey.pub 中， 私钥保存在 rsakey.priv 中
 
@@ -15,7 +16,8 @@ python test.py make-keys rsakey
 假如有文件 明文.txt：
 
 ```sh
-python test.py encrypt 明文.txt from rsakey to 密文.txt
+py test.py encrypt import.sh from rsakey to import-encry.sh
+~python test.py encrypt 明文.txt from rsakey to 密文.txt~
 ```
 
 将生成 密文.txt
@@ -25,10 +27,14 @@ python test.py encrypt 明文.txt from rsakey to 密文.txt
 假如有文件 密文.txt：
 
 ```sh
-python test.py decrypt 密文.txt as rsakey to 解密后.txt
+py test.py decrypt import-encry.sh as rsakey to import-decry.sh
+~python test.py decrypt 密文.txt as rsakey to 解密后.txt~
 ```
 
-将生成 解密后.txt
+### 验证文件不同点
 
+```sh
+diff import.sh import-decry.sh
 
-推荐关注公众号 「Python七号」，学习 Python 实战技能。
+没有内容输出，说明文件内容都相同的
+```
