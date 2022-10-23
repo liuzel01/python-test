@@ -1,11 +1,12 @@
 from imaplib import Int2AP
 from operator import contains, index
+from re import L
 from ssl import SSLWantReadError
 from textwrap import indent
 from traceback import print_last
 
 '''注释写法： 
-当行一个 # ，
+单行一个 # ，
 vscode 快捷键： Ctrl + /
 
 
@@ -271,9 +272,31 @@ print(float(i),type(float(i)))'''
 # print(lst[1::2])        # 默认结束，到最后
 # print(lst[::-1])
 
-lst = [10,20,30,40]
-# print(10 in lst)
+# # 列表元素添加操作
+# lst = [10,20,30,40]
+# # print(10 in lst)
+# ls2=['hello','world']
+# ls3=[True,False,'hello']
+# # lst.append(ls2)
+# # print(lst)
+# # lst.extend(ls2)
+# # print(lst)
+# # 在任意位置上添加一个元素
+# lst.insert(1,90)
+# # print(lst)
+# lst[1:]=ls3
+# print(lst)
 
-
-
+# # 列表元素删除操作
+lst = [10,20,30,40,60,30]
+# lst.remove(30)
+print(lst)
+lst.pop(1)
+print(lst)
+# lst.pop(1)
+# print(lst)
+# qq=lst.pop()
+# print(qq)
+# lst[1:3]=[]
+# print(lst)
 
