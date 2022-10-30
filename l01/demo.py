@@ -1,9 +1,19 @@
+from ast import Num, arg
 from imaplib import Int2AP
-from operator import contains, index
+from inspect import trace
+from operator import contains, ge, index
+from ossaudiodev import SNDCTL_COPR_RCODE
 from re import L
 from ssl import SSLWantReadError
+from symbol import factor
 from textwrap import indent
+from tkinter import CENTER
 from traceback import print_last
+import traceback
+from unittest import result
+from webbrowser import get
+
+from pyparsing import null_debug_action
 
 '''注释写法： 
 单行一个 # ，
@@ -288,15 +298,507 @@ print(float(i),type(float(i)))'''
 # print(lst)
 
 # # 列表元素删除操作
-lst = [10,20,30,40,60,30]
-# lst.remove(30)
-print(lst)
-lst.pop(1)
-print(lst)
+# lst = [10,20,30,40,60,30]
+# # lst.remove(30)
+# print(lst)
+# lst.pop(1)
+# print(lst)
 # lst.pop(1)
 # print(lst)
 # qq=lst.pop()
 # print(qq)
 # lst[1:3]=[]
 # print(lst)
+
+# 字典 dict
+# scores={'张三':100,'里斯':200,'王五':45}
+# print(scores)
+# print(type(scores))
+# stu=dict(name='jack',age=20)
+# print(stu)
+
+# 获取字典元素
+# print(scores['张三'])
+# # print(scores['chenliu'])
+# print(scores.get('张三'))
+# # get 方法不会报错。。
+# print(scores.get('chenliu'))
+# # 99看作 key 不存在时的默认值
+# print(scores.get('玛奇',99))
+
+# key 的判断
+# print('三' in scores)
+# 删除键值
+# del scores['张三']
+# print(scores)
+# scores.clear()
+# 新增、修改
+# scores['chenliu']=998
+# # print(scores)
+# scores['里斯']=302
+# print(scores)
+# print(scores.keys())
+# print('转换成 list： ',list(scores.keys()))
+# # print(type(scores.keys()))
+# print(scores.values())
+# print('转换成 list： ',list(scores.values()))
+# print(scores.items())
+# # 转换后的列表元素，是由元组组成
+# print('转换成 list： ',list(scores.items()))
+# for i in scores:
+#     print(i,scores.get(i))
+
+# 字典生成式
+# i = ['Fruits','Bookds','Others']
+# price = [96,78,86,100,110]
+# d={i.upper():price for i,price in zip(i,price)}
+# print(d)
+
+# lst=[10,20,45]
+# print(id(lst))
+# print(id(lst.append(300)))
+# lst.append(300)
+# print(lst)
+# print(id(lst))
+
+# # 元组创建方式，不可变序列
+# t=('Python','world',98)
+# print(t)
+# print(type(t))
+# t1='Python','world',98
+# print(type(t1))
+# # 只有一个元素，需要加(,)
+# t1=('python',)
+# print(t1)
+# print(type(t1))
+# # 空元组创建
+# t2=()
+# print('空元组',t2,type(t2))
+# print('空字典',{})
+# print('空列表',[])
+
+# 集合创建方式，是无序的
+# 元素不允许重复
+# s={2,3,4,5,6,7,7,8,}
+# print(s)
+# s1=set(range(6))
+# s2=set([1,2,3,4,5,5,6,6])
+# s3=set((1,2,3,4,4,5,5,66))
+# print(s1,type(s1))
+# print(s2,type(s2))
+# print(s3,type(s3))
+# print(set('Python'))
+# print(set())
+
+# s = {10,2,3,4,5}
+# print(s)
+# # s.add(80)
+# print(s)
+# # 一次至少添加一个
+# s.update({80,80,90,110})
+# # print(s)
+# s.update([66666])
+# # print(s)
+# s.update((87,98,76))
+# print(s)
+# # s.remove(10)
+# s.discard(5050505)
+# print(s)
+# s.pop()
+# print(s)
+# 集合之间的关系
+# s1={1,2,3,4,5}
+# s2={1,2,4,5,3,6,8,9}
+# s3={6,20,222,333}
+# # print(s1==s2)
+# # print(s1.issubset(s2))
+# # print(s2.issuperset(s1))
+# # print(s1.isdisjoint(s3))
+# # print(s2.isdisjoint(s3))
+# # 交集操作
+# print(s1.intersection(s2))
+# print(s1 & s2)
+# print(s1.union(s3))
+# print(s1 | s3)
+# print(s1,s3)
+# # 差集
+# print(s2.difference(s1))
+# print(s1.difference(s3))
+# print(s3 - s2)
+# # 对称差集
+# print(s1.symmetric_difference(s2))
+# print(s3.symmetric_difference(s2))
+# print(s3.symmetric_difference(s1))
+
+# 集合生成式
+# s={ i*i for i in range(6) }
+# print(s)
+
+# title="列表、字典、元组、集合总结"
+# print(title.center(70,'='))
+
+# from tabulate import tabulate
+# import wcwidth
+
+# d = [
+#     ["列表（list）","可变","可重复","有序","[]"],
+#     ["元组（tuple）","不可变","可重复","有序","()"],
+#     ["字典（dict）","可变","key可重复 \nvalue可重复","无序","{key:value}"],
+#     ["集合（set）","可变","不可重复","无序","{}"]
+#     ]
+
+# d_headers = headers=["数据结构", "是否可变", "是否重复","是否有序","定义符号"]
+# print(tabulate(d,d_headers,tablefmt='grid'))
+
+# 字符串驻留机制
+# a='Python'
+# b="Python"
+# c='''Python'''
+# print(id(a))
+# print(id(b))
+# print(id(c))
+# 转成大写后，会产生一个新的字符串对象
+# s=a.upper()
+# s2=a.lower()
+# print(a,id(a))
+# print(s,id(s))
+# print(s2,id(s2))
+# print(s.title())
+# print(a.center(50,'*'))
+# print(a.ljust(20,'*'))
+# print(a.rjust(20))
+# print(a.zfill(20))
+# print('-8910'.zfill(8))
+
+# 字符串劈分操作的方法
+# a='hello python world'
+# print(a.split())
+# print(a.split(maxsplit=1))
+# print(a.split(sep='o',maxsplit=2))
+# print('='*30)
+# print(a.rsplit())
+# print(a.rsplit(maxsplit=1))
+# print(a.rsplit(sep='o',maxsplit=2))
+
+# 字符串常用操作
+# 是否是有效标识符
+# print('1. ',a.isidentifier())
+# print('2. ','hello'.isidentifier())
+# print('3. ','张三_'.isidentifier())
+# print('4. ','张三_2'.isidentifier())
+# print('5. ','\t'.isspace())
+# print('6. ',a.isalpha())
+# print('7. ','123'.isdecimal())
+# print('8. ','123四'.isdecimal())
+# print('9. ','123四'.isnumeric())
+# print('10. ','张三123'.isalnum())
+# print('10. ','abc!'.isalnum())
+
+# print(a.replace('o','java',2))
+# print(a[-7:-13:-1])
+# print(a[6:13:])
+
+# name='张三'
+# age=20
+# print('我叫 %s ，今年 %d 岁'%(name,age))
+# print('我叫 {0} ，今年 {1} 岁'.format(name,age))
+# print(f'我叫 {name} ，今年 {age} 岁')
+
+# print('%10d',)
+print('上面有待补充','=='*20)
+
+# def cale(a,b):
+#     c = a + b 
+#     return c
+# # 位置实参
+# result=cale(10,20)
+# print(result)
+# # res 关键字参数
+# print('res: ',cale(b=10,a=20))
+
+# def fun(ar1,ar2):
+#     print('ar1: ',ar1)
+#     print('ar2: ',ar2)
+#     ar1 = 100
+#     ar2.append(200)
+#     print('ar1: ',ar1)
+#     print('ar2: ',ar2)
+# q = 11
+# w = [22,33,11]
+# # q, w 是调用处的实参，ar1, ar2 是定义处的形参
+# fun(q,w)
+# print('q: ',q)
+# print('w: ',w)
+'''在函数调用过程中，进行参数的传递。
+如果是不可变对象，在函数体的修改不会影响实参的值，
+如果是不可变对象，则会影响到实参的值'''
+
+# print(bool(0))
+# print(bool(8))
+# def fun(num):
+#     odd = []
+#     even = []
+#     for i in num:
+#         if i % 2:
+#             odd.append(i)
+#         else:
+#             even.append(i)
+#     return odd,even
+# lst = [10,29,34,23,44,53,55]
+# print(fun(lst))
+
+'''函数的返回值，
+如果没有返回值（fun 执行完毕后，不需要给调用处提供数据），return 可以忽略不写
+fun 返回值是1个，直接返回类型
+fun 返回值是多个，返回的结果为元组'''
+
+# def fun(a,b=10):
+#     print(a,b)
+# fun(100)
+
+# 可变的位置参数
+# def fun(*args):
+#     print(args)
+#     # print(args[0])
+# fun(10)
+# fun(10,20)
+# fun(30,405,60)
+
+# 定义个数可变的关键字形参，结果是字典
+# def fun(**args):
+#     print(args)
+# fun(a=10)
+# fun(a=10,b=20,c=30)
+
+# def fun2(*args,*a):
+#     pass
+# 以上代码，程序会报错，可变的位置参数，只能是1个
+# 以上代码，程序会报错，可变的关键字参数，只能是1个
+
+# def fun3(**arg1,*arg2):
+#     pass
+# 函数定义，既有个数可变的关键字形参，也有个数可变的位置形参，后者应该放前面
+
+
+# title="函数的参数总结"
+# print(title.center(75,'='))
+# from tabulate import tabulate
+# import wcwidth
+
+# d = [
+#     ["位置实参","","√",""],
+#     ["将序列中的每个元素都转换为位置实参","","√","使用*"],
+#     ["关键字实参","","√",""],
+#     ["将字典中的每个键值对都转换为关键字实参","","√","使用**"],
+#     ["默认值形参","√","",""],
+#     ["关键字形参","√","","使用*"],
+#     ["个数可变的位置形参","√","","使用*"],
+#     ["个数可变的关键字形参","√","","使用**"]
+#     ]
+
+# d_headers = headers=["参数的类型", "函数的定义", "函数的调用","备注"]
+# print(tabulate(d,d_headers,tablefmt='grid'))
+
+# def fun(a,b,c):
+#     print('a= ',a)
+#     print('b= ',b)
+#     print('c= ',c)
+# fun(10,20,30)
+
+# lst=[11,22,33]
+# # fun(*lst)
+# # fun(a=100,b=200,c=300)
+# dic={'a':111,'b':222,'c':333}
+# fun(**dic)
+
+# 从* 之后的参数，在函数调用时只能采用关键字参数传递
+# def fun4(a,b,*,c,d):
+#     print('a= ',a)
+#     print('b= ',b)
+#     print('c= ',c)
+#     print('d= ',d)
+# # 关键字实参传递
+# fun4(a=10,b=20,c=30,d=40)
+# # 前两个参数，使用位置实参传递；c和d使用关键字实参传递
+# fun4(10,20,c=30,d=40)
+
+# def fun5(a,b,*,c,d,**args):
+#     pass
+# def fun6(*args,**args2):
+#     pass
+# def fun7(a,b=10,*args,**args2):
+#     pass
+
+# 局部变量使用 global 声明，变成全局变量
+# def fun():
+#     global age
+#     age = 20
+#     print(age)
+# fun()
+# print(age)
+
+# # 函数的递归函数（嵌套）
+# def fac(n):
+#     if n == 1:
+#         return 1
+#     else:
+#         res = n * fac(n-1)
+#         return res
+#         # return n * fac(n-1)
+
+# print(fac(6))
+
+# def fib(n):
+#     if n == 1:
+#         return 1
+#     elif n == 2:
+#         return 1
+#     else:
+#         return fib(n-1) + fib(n-2)
+# # 斐波拉契第6位的数字
+# print(fib(6))
+
+# for n in range(1,7):
+#     print(fib(n),end='\t')
+
+# 异常处理
+# try: 
+#     a = int(input('输入第一个整数'))
+#     b = int(input('输入第二个整数'))
+#     res = a / b
+#     print('结果为： ',res)
+# except ZeroDivisionError:
+#     print('除数不允许为0')
+# except ValueError:
+#     print('只允许输入数字串')
+
+# print('完成计算')
+
+# # 另一种方式
+# try: 
+#     a = int(input('输入第一个整数'))
+#     b = int(input('输入第二个整数'))
+#     res = a / b
+# except BaseException as e:
+#     print('报错信息： ',e)
+# else:
+#     print('计算结果为： ',res)
+
+# # 另一种方式
+# try: 
+#     a = int(input('输入第一个整数'))
+#     b = int(input('输入第二个整数'))
+#     res = a / b
+# except BaseException as e:
+#     print('报错信息： ',e)
+# else:
+#     print('计算结果为： ',res)
+# finally:
+#     print('谢谢使用')
+
+
+# title="python常见的异常类型"
+# print(title.center(50,'='))
+# from tabulate import tabulate
+# import wcwidth
+
+# d = [
+#     ["ZeroDivisionError","除（或取模）零（所有数据类型）"],
+#     ["IndexError","序列中没有此索引（index）"],
+#     ["KeyError","映射中没有这个键"],
+#     ["NameError","未声明/初始化对象（没有属性）"],
+#     ["SyntaxError","Python语法错误"],
+#     ["ValueError","传入无效的参数"]
+#     ]
+
+# d_headers = headers=["异常类型", "描述", "函数的调用","备注"]
+# print(tabulate(d,d_headers,tablefmt='grid'))
+
+# import traceback
+# try:
+#     print('-----')
+#     print(1/0)
+# except:
+#     traceback.print_exc()
+
+
+# title="python常见的异常类型"
+# print(title.center(50,'='))
+# from tabulate import tabulate
+# import wcwidth
+
+# d = [
+#     ["ZeroDivisionError","除（或取模）零（所有数据类型）"],
+#     ["IndexError","序列中没有此索引（index）"],
+#     ["KeyError","映射中没有这个键"],
+#     ["NameError","未声明/初始化对象（没有属性）"],
+#     ["SyntaxError","Python语法错误"],
+#     ["ValueError","传入无效的参数"]
+#     ]
+
+# d_headers = headers=["异常类型", "描述", "函数的调用","备注"]
+# print(tabulate(d,d_headers,tablefmt='grid'))
+
+
+print('Python 中一切皆对象'.center(70,'='))
+
+# Student 为类的名称（类名），由一个或多个单词组成，单个单词的首字母大写，其余小写
+# Student 也是对象，内存也有开空间
+class Student:
+    # 直接写在类里的变量，称为类属性
+    native_place = '吉林'  
+    # 初始化方法
+    def __init__(self,name,age):
+        # self.name 成为实体属性，进行了赋值操作，将局部变量的 name 的值赋给实体属性
+        self.name = name
+        self.age = age
+# 实例方法
+# 在类之外定义的称为函数，类之内定义的称为方法
+    def eat(selflflflf):
+        print('学生在吃饭。。')
+# 静态方法
+# 没有任何默认的参数
+    @staticmethod
+    def method():
+        print('使用了 staticmethod 进行修饰，所以是静态方法')
+# 类方法
+    @classmethod
+    def cm(clsssss):
+        print('使用了 classmethod 进行修饰，所以是类方法')
+
+# xbai=Student('张三',20)
+# # xbai 是 Student 类的一个实例对象
+# # 一个 Student 类可以创建N 多个 Student 类的实例对象，每个实例对象的属性值可同可不同
+# print(xbai.age)
+# print(xbai.native_place)
+# xbai.eat()
+# Student.eat(xbai)   # 同样是调用 Seudent 中的 eat 方法
+#                     # 类名.方法名(类的对象)， 实际上就是方法定义出的 self
+
+
+# # 类属性： 类中方法外的属性称为类属性。被该类的所有对象所共享
+# xbai = Student('张三',20)
+# xhei = Student('李四',10)
+# print(xbai.native_place)
+# print(xhei.native_place)
+# print(xbai.name)
+# xbai.name = '张三三'
+# print(xbai.name)
+# # 类方法的调用，使用类名直接访问
+# Student.cm()
+# # 静态方法的调用，使用类型直接访问
+# Student.method()
+
+
+
+
+
+
+
+
+
+
+
+
+
 
