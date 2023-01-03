@@ -1,4 +1,5 @@
 import platform
+import psutil
 from pprint import pprint
 
 __author__ = "liuzel01"
@@ -64,8 +65,20 @@ Python 版本: {5}
            platform.python_version()
            ))
 
-print("============这是CPU相关信息============")
+'''print("============这是CPU相关信息============")
 print("\n".join(cpu_features))
 
 print("\n============这是内存相关信息============")
-print("\n".join(memory_features))
+print("\n".join(memory_features))'''
+
+
+# print("CPU 逻辑核数: ",psutil.cpu_count())
+# print("CPU 物理核数: ",psutil.cpu_count(logical=False))
+# print(psutil.cpu_percent(interval=1,percpu=True))
+
+# print(psutil.virtual_memory())
+
+# pprint(psutil.net_if_addrs())
+# pprint(psutil.net_connections('tcp'))
+
+print(psutil.users())
