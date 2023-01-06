@@ -48,16 +48,21 @@ if  __name__ == "__main__":
     sht.range('E1').value ='上映日期'
     sht.range('F1').value ='国家'
 
-    i = 1
-    for dic_item in dic_obj:
-        print('cnt:',i,'title ',dic_item['title'],'\r\n')
-        sht.range('A'+str(i+1)).value = i
-        sht.range('B'+str(i+1)).value = dic_item['rank']
-        sht.range('C'+str(i+1)).value = dic_item['title']
-        sht.range('D'+str(i+1)).value = dic_item['rating'][0]
-        sht.range('E'+str(i+1)).value = dic_item['release_date']
-        sht.range('F'+str(i+1)).value = dic_item['regions'][0]
-        i += 1
+    try:
+        i = 1
+        for dic_item in dic_obj:
+            print('cnt:',i,'title ',dic_item['title'],'\r\n')
+            sht.range('A'+str(i+1)).value = i
+            sht.range('B'+str(i+1)).value = dic_item['rank']
+            sht.range('C'+str(i+1)).value = dic_item['title']
+            sht.range('D'+str(i+1)).value = dic_item['rating'][0]
+            sht.range('E'+str(i+1)).value = dic_item['release_date']
+            sht.range('F'+str(i+1)).value = dic_item['regions'][0]
+            i += 1
+    except:
+        print('发生异常')
     wb.save('movie_rank.xlsx')
     wb.close()
     app.quit()
+
+    print('完成')
