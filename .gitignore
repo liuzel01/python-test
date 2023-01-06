@@ -12,3 +12,4 @@ rsa/rsakey*
 rsa/import-encry.sh
 rsa/import-decry.sh
 email.sh
+devops/*.xlsx
