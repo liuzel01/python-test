@@ -20,9 +20,9 @@ from selenium.webdriver.chrome.options import Options
 4. 将对应字段填写完成，点击“新建”按钮，完成日报的创建
 '''
 
-# todo(liuzel01): 跳转到填写日报页面，并打开新建任务页
 # todo(liuzel01): 通过读取本地文件，填写任务的字段
 # todo(liuzel01): 将函数 time.sleep 使用 while(1): try: 循环代替
+# todo(liuzel01): XPATH 绝对路径不能保证后续程序的健壮性，需要更改
 
 if __name__ == "__main__":
 
@@ -98,12 +98,20 @@ if __name__ == "__main__":
     driver.find_element(By.XPATH,'/html/body/div[1]/div[1]/div[4]/div[1]/div/div/div[1]/form/div[3]/div/div/div/div[2]/div[1]/div/div/div[2]').click()
 
     # 计划时间
+    # 日期选择框无法进行键盘输入
     current_time = time.strftime('%Y.%m.%d',time.localtime(time.time()))
-    driver.find_element(By.XPATH, '/html/body/div[1]/div[1]/div[4]/div[1]/div/div/div[1]/form/div[1]/div[3]/div[2]/div/div/div/div/div[1]/input').send_keys(current_time)
-    driver.find_element(By.XPATH, '/html/body/div[1]/div[1]/div[4]/div[1]/div/div/div[1]/form/div[1]/div[3]/div[2]/div/div/div/div/div[3]/input').send_keys(current_time)
+    # js = "$('driver.find_element(By.XPATH,'/html/body/div[1]/div[1]/div[4]/div[1]/div/div/div[1]/form/div[1]/div[3]/div[2]/div/div/div/div/div[1]/input')').removeAttr('readonly')"
+    js = "$('input[id=c-date1]').attr('readonly','')"
+    js =
+    driver.execute_script(js)
+
+    # driver.find_element(By.XPATH, '/html/body/div[1]/div[1]/div[4]/div[1]/div/div/div[1]/form/div[1]/div[3]/div[2]/div/div/div/div/div[1]/input').send_keys(current_time)
+    # driver.find_element(By.XPATH, '/html/body/div[1]/div[1]/div[4]/div[1]/div/div/div[1]/form/div[1]/div[3]/div[2]/div/div/div/div/div[3]/input').send_keys(current_time)
+
+    # js = "$('input:eq(0)').removeAttr('readonly')"
 
     # 开始写入任务描述
-    driver.find_element(By.XPATH,'/html/body/div[1]/div[1]/div[4]/div[1]/div/div/div[1]/form/div[1]/div[4]/div/div[1]').click()
+    # driver.find_element(By.XPATH,'/html/body/div[1]/div[1]/div[4]/div[1]/div/div/div[1]/form/div[1]/div[4]/div/div[1]').click()
     # driver.get('https://e.gitee.com/hilong_1/dashboard')
     # # 进入工作项
     # time.sleep(3)
