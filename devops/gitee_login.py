@@ -46,7 +46,7 @@ if __name__ == "__main__":
     # 填入自己的账号和密码
     username_tag.send_keys('liuzelin01@outlook.com')
     time.sleep(1)
-    password_tag.send_keys('LIUzeLIN678^&*<>?')
+    password_tag.send_keys('******')
 
     # 通过xpath获取登录按钮
     login_btn = driver.find_element(By.XPATH,'/html/body/div[2]/div[2]/div/div[1]/div[2]/div[1]/form[1]/div/div/div/div[4]/input')
