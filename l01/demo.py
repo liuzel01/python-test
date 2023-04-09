@@ -1,11 +1,13 @@
+# coding=utf-8
+import random
 from ast import Num, arg
 from imaplib import Int2AP
 from inspect import trace
 from operator import contains, ge, index
-from ossaudiodev import SNDCTL_COPR_RCODE
+# from ossaudiodev import SNDCTL_COPR_RCODE
 from re import L
 from ssl import SSLWantReadError
-from symbol import factor
+# from symbol import factor
 from textwrap import indent
 from tkinter import CENTER
 from traceback import print_last
@@ -740,7 +742,8 @@ fun 返回值是多个，返回的结果为元组'''
 # print(tabulate(d,d_headers,tablefmt='grid'))
 
 
-print('Python 中一切皆对象'.center(70,'='))
+# print('Python 中一切皆对象'.center(70,'='))
+# print('hello world!')
 
 # Student 为类的名称（类名），由一个或多个单词组成，单个单词的首字母大写，其余小写
 # Student 也是对象，内存也有开空间
@@ -789,7 +792,52 @@ class Student:
 # # 静态方法的调用，使用类型直接访问
 # Student.method()
 
+# name = 'liuzelin'
+# age = 22
+# weight = 75.5
+# stu_id = 25
+# 解决数据对齐显示
+# print('我的学号是： %03d'%stu_id)
+# # print(f'我的名字是： %s，今年 %s 岁了，体重 %s 公斤'%(name,age,weight))
+# print(f'我的名字是： {name}，今年 {age} 岁了，体重 {weight} 公斤')
 
+# str2 = '1.1'
+# str3 = '(1,2,3)'
+# str4 = '[1,2,3,4]'
+# # eval 用来计算在字符串中的有效 python 表达式，并返回一个对象值
+# print(eval(str2))
+# print(eval(str3))
+# print(eval(str4))
+
+# player = int(input('请出拳（0--石头；1--剪刀；2-布）： '))
+# computer = random.randint(0,2)
+# if (player == 0 and computer == 1) or (player == 1 and computer == 2) or (player == 2 and computer == 0):
+#     print('玩家获胜')
+# elif (player == computer):
+#     print('平局')
+# else:
+#     print('电脑获胜')
+# print('游戏结束')
+
+# # 三目运算符
+# aa,bb = 10,60
+# cc = aa - bb if aa > bb else bb - aa
+# print(cc)
+
+# 1..100 以内的数字求和
+i = 0
+res = 0
+while i < 10:
+    i += 1
+    print(f'当前 i 的值： {i}')
+    if i % 2 == 0:
+        print(f'当前计算： result = {res} + {i}')
+        res += i
+        print(f'截至本次 res 的值： {res}')
+
+# print(res)
+
+# print(6%-2)
 
 
 
