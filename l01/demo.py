@@ -825,21 +825,65 @@ class Student:
 # print(cc)
 
 # 1..100 以内的数字求和
-i = 0
-res = 0
-while i < 10:
-    i += 1
-    print(f'当前 i 的值： {i}')
-    if i % 2 == 0:
-        print(f'当前计算： result = {res} + {i}')
-        res += i
-        print(f'截至本次 res 的值： {res}')
-
-# print(res)
-
-# print(6%-2)
+# i = 0
+# res = 0
+# while i < 10:
+#     i += 1
+#     # print(f'当前 i 的值： {i}')
+#     if i % 2 == 0:
+#         # print(f'当前计算： result = {res} + {i}')
+#         res += i
+#         print(f'截至本次 res 的值： {res}')
 
 
+# i = 1
+# while i <= 5:
+#     if i == 3:
+#         print('吃出一个虫子，这个苹果不吃了')
+#         i += 1
+#         continue
+#     print(f'吃了第{i}个苹果')
+#     i += 1
+
+# d = 0
+# while d < 3:
+#     print(f'第{d+1}天')
+#     a = 0
+#     # print(f'a的值为{a}')
+#     while a < 3:
+#         print('abcabc')
+#         a += 1
+#         # print(f'a的值为{a}')
+#         # break
+#     print('今天去刷碗。惩罚结束')
+#     d += 1
+
+# 打印矩形
+# i = 1
+# while i < 5:
+#     i += 1
+#     print('*'*i)
+# while i < 5:
+#     i += 1
+#     j = 0
+#     while j < i:
+#         print('*',end='')
+#         j += 1
+#     print()
+
+# j = 1
+# while j <= 9:
+#     # print(f'{j} * {i} = {j*i}',end='')
+#     i = 1
+#     while i <= j:
+#         print(f'{i} * {j} = {j * i}',end='\t')
+#         i += 1
+#     print()
+#     j += 1
+
+abc = 'itheima'
+for i in abc:
+    print(i)
 
 
 
